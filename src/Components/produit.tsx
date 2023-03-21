@@ -1,10 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TProduit } from '../Type/tProduit';
-import { UpdateProduit } from './updateProduit';
+import { ButtonPostProd } from './buttonPostProd';
+import { MapGetProduit } from './mapGetProduit';
 
 export function Produit({ setPage }: any) {
     const [prod, setProd]: any = useState();
-    const [change, setChange]: any = useState();
+
     const baseUrl = 'http://localhost:8000/Api/produits';
     const options = {
         method: 'GET',
@@ -13,55 +14,32 @@ export function Produit({ setPage }: any) {
     useEffect(() => {
         fetch(baseUrl, options)
             .then((response) => response.json())
-            .then((donnee) => setProd(donnee))
+            .then((response) => setProd(response.data))
 
             .catch((erreur) => `${erreur}`);
     }, []);
-    console.log(prod);
-    const inputChange = (e: React.BaseSyntheticEvent) => {
-        const { name, value } = e.target;
-        console.log(name);
-    };
-    const test = prod?.data.map((data: TProduit, i: number) => (
-        <div className="row">
-            <div className="col">{data.id}</div>
-            <div className="col">{data.nom}</div>
-            <div className="col">{data.prix}</div>
-            <div className="col">{data.quantite}</div>
-            <div className="col">
-                <div className="row">
-                    <button className=" col btn btn-primary btn-sm p-0 me-2 mb-2">
-                        Editer
-                    </button>
-                    <button className="col btn btn-danger btn-sm p-0 me-2 mb-2">
-                        Supprimer
-                    </button>
-                </div>
-            </div>
-        </div>
+
+    const mapProduit = prod?.map((data: TProduit, i: number) => (
+        <MapGetProduit data={data} prod={prod} setPage={setPage} />
     ));
+
     return (
         <div>
-            <div className="text-start mt-5 ms-5">
-                <button
-                    type="button"
-                    className="btn btn-primary text-start mt-2 ms-5"
-                    onKeyUp={() => {
-                        /*  <UpdateProduit /> */
-                    }}
-                >
-                    Ajouter un produit
-                </button>
-            </div>
+            <ButtonPostProd setPage={setPage} />
             <div className="container  border-top border-primary mt-5">
-                <div className="row">
-                    <div className="col">#</div>
-                    <div className="col">Nom</div>
-                    <div className="col">Prix</div>
-                    <div className="col">Quantité</div>
-                    <div className="col d-sm-none d-md-block">Action</div>
+                <div className="table-responsive">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prix</th>
+                                <th scope="col">Quantité</th>
+                            </tr>
+                        </thead>
+                        <tbody>{mapProduit}</tbody>
+                    </table>
                 </div>
-                {test}
             </div>
         </div>
     );
