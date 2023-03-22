@@ -1,6 +1,5 @@
 import { TProduit } from '../Type/tProduit';
 import { DeleteProduit } from './deletProd';
-import { UpdateProd } from './updateProd';
 
 export function MapGetProduit(props: {
     data: any;
@@ -8,9 +7,6 @@ export function MapGetProduit(props: {
     setProd: React.Dispatch<React.SetStateAction<TProduit[] | undefined>>;
     setPage: any;
 }) {
-    const upProd = (e: React.BaseSyntheticEvent) => {
-        <UpdateProd />;
-    };
     return (
         <tr>
             <th scope="row">{props.data.id}</th>
@@ -20,8 +16,7 @@ export function MapGetProduit(props: {
             <td className="me-2">
                 <button
                     type="button"
-                    className="col btn btn-primary btn-sm p-0 me-5 mb-2 "
-                    onClick={(e) => upProd(e)}
+                    className="col btn btn-primary p-0 me-5 mb-2 "
                 >
                     Editer
                 </button>

@@ -45,7 +45,7 @@ export function DeleteProduit(props: {
 
     return (
         <button
-            className="col btn btn-danger btn-sm p-0 me-5 mb-2"
+            className="col btn btn-danger  p-0 me-5 mb-2"
             onClick={(e) => actionButton(e)}
         >
             Supprimer

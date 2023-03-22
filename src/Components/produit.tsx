@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TProduit } from '../Type/tProduit';
+import { ButtonPostProd } from './buttonPostProd';
+
 import { MapGetProduit } from './mapGetProduit';
 import { PostProduit } from './postProduit';
 
@@ -35,6 +37,7 @@ export function Produit() {
                 <PostProduit prod={prod} setPage={setPage} setProd={setProd} />
             )}
 
+            <ButtonPostProd setPage={setPage} prod={prod} setProd={setProd} />
             <div className="container table-responsive border-top border-primary mt-5">
                 <table className=" table">
                     <thead>
