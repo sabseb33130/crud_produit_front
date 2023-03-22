@@ -1,8 +1,18 @@
+import { TProduit } from '../Type/tProduit';
 import { PostProduit } from './postProduit';
 
-export function ButtonPostProd({ setPage }: any) {
+export function ButtonPostProd(props: {
+    setPage: any;
+    setProd: React.Dispatch<React.SetStateAction<TProduit[] | undefined>>;
+    prod: TProduit[] | undefined;
+}) {
     const buttonAffichProd = (e: React.BaseSyntheticEvent) => {
-        setPage('ajouter');
+        props.setPage('ajouter');
+        <PostProduit
+            prod={props.prod}
+            setProd={props.setProd}
+            setPage={props.setPage}
+        />;
     };
 
     return (

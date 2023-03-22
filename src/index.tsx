@@ -3,14 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { TProduit } from './Type/tProduit';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement,
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+        <App
+            setProd={function (
+                value: React.SetStateAction<TProduit[] | undefined>,
+            ): void {
+                throw new Error('Function not implemented.');
+            }}
+            prod={undefined}
+        />
+    </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

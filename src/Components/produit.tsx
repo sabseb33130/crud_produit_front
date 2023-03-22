@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { TProduit } from '../Type/tProduit';
 import { ButtonPostProd } from './buttonPostProd';
 import { MapGetProduit } from './mapGetProduit';
+import { PostProduit } from './postProduit';
 
-export function Produit({ setPage }: any) {
-    const [prod, setProd]: any = useState();
-
+export function Produit() {
+    const [prod, setProd] = useState<TProduit[]>();
+    const [page, setPage] = useState();
     const baseUrl = 'http://localhost:8000/Api/produits';
     const options = {
         method: 'GET',
@@ -21,13 +22,16 @@ export function Produit({ setPage }: any) {
     console.log(prod);
 
     const mapProduit = prod?.map((data: TProduit, i: number) => (
-        <MapGetProduit data={data} prod={prod} setPage={setPage} />
+        <MapGetProduit data={data} prod={prod} setProd={setProd} />
     ));
 
     return (
         <div>
-            <ButtonPostProd setPage={setPage} />
-            <div className="container  border-top border-primary mt-5">
+            <ButtonPostProd setPage={setPage} prod={prod} setProd={setProd} />
+            {page === 'ajouter' && (
+                <PostProduit prod={prod} setPage={setPage} setProd={setProd} />
+            )}
+            <div className="container table-responsive border-top border-primary mt-5">
                 <table className=" table">
                     <thead>
                         <tr>

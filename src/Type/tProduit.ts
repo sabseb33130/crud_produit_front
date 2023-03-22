@@ -4,8 +4,3 @@ export type TProduit = {
     prix: number;
     quantite: number;
 };
-export type PProduit = {
-    nom: string;
-    prix: number;
-    quantite: number;
-};

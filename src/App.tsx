@@ -4,18 +4,17 @@ import './App.css';
 import { Produit } from './Components/produit';
 import { Header } from './Components/header';
 import { PostProduit } from './Components/postProduit';
+import { TProduit } from './Type/tProduit';
 
-function App({ prod }: any) {
-    const [page, setPage] = useState();
-    console.log(page);
+function App(props: {
+    prod: TProduit[] | undefined;
+    setProd: React.Dispatch<React.SetStateAction<TProduit[] | undefined>>;
+}) {
     return (
         <div className="App">
             <Header />
-            {page === 'ajouter' && (
-                <PostProduit prod={prod} setPage={setPage} />
-            )}
 
-            <Produit setPage={setPage} prod={prod} />
+            <Produit />
         </div>
     );
 }

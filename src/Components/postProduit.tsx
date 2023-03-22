@@ -1,68 +1,65 @@
-import e from 'express';
-import React from 'react';
 import { useState } from 'react';
-import { PProduit } from '../Type/tProduit';
+import { TProduit } from '../Type/tProduit';
 
-export function PostProduit({ prod, setPage }: any) {
-    const newProduit: PProduit = {
-        nom: '',
-        prix: 0,
-        quantite: 0,
-    };
-
-    const [envoiProduit, setEnvoiProduit] = useState({ newProduit });
+export function PostProduit(props: {
+    setPage: any;
+    setProd: React.Dispatch<React.SetStateAction<TProduit[] | undefined>>;
+    prod: TProduit[] | undefined;
+}) {
+    const [nom, setChangeNom] = useState('');
+    const [prix, setChangePrix] = useState<number>(0);
+    const [quantite, setQuantite] = useState<number>(0);
+    const [envoiProduit, setEnvoiProduit] = useState();
     const inputChangeNom = (e: React.BaseSyntheticEvent) => {
-        const { name, value } = e.target;
+        const { value } = e.target;
+        console.log(value);
 
-        setEnvoiProduit({
-            ...prod,
-            [name]: value,
-        });
-
-        setEnvoiProduit({ ...prod, [name]: value });
+        setChangeNom(value);
     };
-    console.log(inputChangeNom);
-    console.log(envoiProduit);
 
-    /* 
     const inputChangePrix = (e: React.BaseSyntheticEvent) => {
-        const { name, value } = e.target;
-        if (name === 'prix') {
-            setEnvoiProduit({
-                ...prod,
-                [name]: value,
-            });
-        }
-        setEnvoiProduit({ ...prod, [name]: value });
+        const { value } = e.target;
+
+        setChangePrix(value);
     };
     const inputChangeQuantite = (e: React.BaseSyntheticEvent) => {
-        const { name, value } = e.target;
-        if (name === 'quantite') {
-            setEnvoiProduit({
-                ...prod,
-                [name]: value,
-            });
-        }
-        setEnvoiProduit({ ...prod, [name]: value });
+        const { value } = e.target;
+
+        setQuantite(value);
     };
- */
+
     const baseUrl = 'http://localhost:8000/Api/produits';
     const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(envoiProduit),
+        body: JSON.stringify({
+            nom,
+            prix,
+            quantite,
+        }),
     };
 
     const postProduit = (e: React.BaseSyntheticEvent) => {
+        e.preventDefault();
         fetch(baseUrl, options)
             .then((response) => response.json())
-            .then((response) => setEnvoiProduit(response.data))
+            .then((response) => {
+                setEnvoiProduit(response.data);
+                console.log(response);
+
+                const refresh = [...props.prod!, response.data];
+                props.setProd(refresh);
+            })
+
             .catch((err) => console.error(err));
     };
+    console.log(props.prod);
+
     const buttonRetour = (e: React.BaseSyntheticEvent) => {
         postProduit(e);
-        setPage('accueil');
+        props.setPage('accueil');
     };
+
     return (
         <div>
             <div className="container border mt-2">
@@ -84,7 +81,7 @@ export function PostProduit({ prod, setPage }: any) {
                     <div className="mb-3 text-start">
                         <label className="form-label">Prix</label>
                         <input
-                            onChange={(e) => inputChangeNom(e)}
+                            onChange={(e) => inputChangePrix(e)}
                             name="prix"
                             type="number"
                             className="form-control"
@@ -94,7 +91,7 @@ export function PostProduit({ prod, setPage }: any) {
                     <div className="mb-3 text-start">
                         <label className="form-label">Quantité</label>
                         <input
-                            onChange={(e) => inputChangeNom(e)}
+                            onChange={(e) => inputChangeQuantite(e)}
                             name="quantite"
                             type="number"
                             className="form-control"
