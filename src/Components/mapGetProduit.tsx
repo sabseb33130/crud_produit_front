@@ -8,7 +8,7 @@ export function MapGetProduit({ data, test }: any) {
             <td>{data.prix}</td>
             <td>{data.quantite}</td>
             <td className="me-2">
-                <button className=" col btn btn-primary  p-0 me-2 mb-2">
+                <button className=" col btn btn-primary btn-sm p-0 me-5 mb-2">
                     Editer
                 </button>
 

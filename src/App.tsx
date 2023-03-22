@@ -11,7 +11,10 @@ function App({ prod }: any) {
     return (
         <div className="App">
             <Header />
-            {<PostProduit prod={prod} />}
+            {page === 'ajouter' && (
+                <PostProduit prod={prod} setPage={setPage} />
+            )}
+
             <Produit setPage={setPage} prod={prod} />
         </div>
     );

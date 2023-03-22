@@ -18,6 +18,7 @@ export function Produit({ setPage }: any) {
 
             .catch((erreur) => `${erreur}`);
     }, []);
+    console.log(prod);
 
     const mapProduit = prod?.map((data: TProduit, i: number) => (
         <MapGetProduit data={data} prod={prod} setPage={setPage} />
@@ -27,19 +28,17 @@ export function Produit({ setPage }: any) {
         <div>
             <ButtonPostProd setPage={setPage} />
             <div className="container  border-top border-primary mt-5">
-                <div className="table-responsive">
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Prix</th>
-                                <th scope="col">Quantité</th>
-                            </tr>
-                        </thead>
-                        <tbody>{mapProduit}</tbody>
-                    </table>
-                </div>
+                <table className=" table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prix</th>
+                            <th scope="col">Quantité</th>
+                        </tr>
+                    </thead>
+                    <tbody>{mapProduit}</tbody>
+                </table>
             </div>
         </div>
     );

@@ -1,9 +1,9 @@
 import e from 'express';
 import React from 'react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { PProduit } from '../Type/tProduit';
 
-export function PostProduit({ prod }: any) {
+export function PostProduit({ prod, setPage }: any) {
     const newProduit: PProduit = {
         nom: '',
         prix: 0,
@@ -59,7 +59,10 @@ export function PostProduit({ prod }: any) {
             .then((response) => setEnvoiProduit(response.data))
             .catch((err) => console.error(err));
     };
-
+    const buttonRetour = (e: React.BaseSyntheticEvent) => {
+        postProduit(e);
+        setPage('accueil');
+    };
     return (
         <div>
             <div className="container border mt-2">
@@ -100,7 +103,7 @@ export function PostProduit({ prod }: any) {
                     </div>
                     <div className="text-start">
                         <button
-                            onClick={(e) => postProduit(e)}
+                            onClick={(e) => buttonRetour(e)}
                             type="submit"
                             className="btn btn-primary  mb-2"
                         >
